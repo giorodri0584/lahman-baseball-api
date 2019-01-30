@@ -5,37 +5,20 @@ import org.springframework.data.jpa.domain.Specifications;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by giorod on 9/3/2018.
  */
-public class SpecificationsBuilder<T> {
-    private final List<SearchCriteria> params;
-
-    public SpecificationsBuilder() {
-        params = new ArrayList<SearchCriteria>();
-    }
-
-    public SpecificationsBuilder(List<SearchCriteria> params) {
-        this.params = params;
-    }
-    public SpecificationsBuilder with(String key, String operation, Object value) {
-        params.add(new SearchCriteria(key, operation, value));
-        return this;
-    }
-
-    public Specification<T> build() {
-        if (params.size() == 0) {
-            return null;
+public class SpecificationsBuilder {
+    public static Specification build(String[] query) {
+        List<Specification> specs = new ArrayList<>();
+        for(String param : query){
+            StringTokenizer parts = new StringTokenizer(param, "=,:,>,<", true);
+            specs.add(new SearchSpecification(new SearchCriteria(parts.nextToken(), parts.nextToken(), parts.nextToken())));
         }
-
-        List<Specification<T>> specs = new ArrayList<Specification<T>>();
-        for (SearchCriteria param : params) {
-            specs.add(new SearchSpecification(param));
-        }
-
-        Specification<T> result = specs.get(0);
-        for (int i = 1; i < specs.size(); i++) {
+        Specification result = specs.get(0);
+        for(int i = 1; i < specs.size(); i++ ){
             result = Specifications.where(result).and(specs.get(i));
         }
         return result;

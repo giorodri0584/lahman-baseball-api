@@ -1,258 +1,124 @@
 package com.rodriguez.giomar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by giorod on 9/28/2017.
  */
 @Entity
 @Table(name = "master")
+@Getter
+@Setter
 public class Player {
     @Id
     @JsonProperty(value = "playerID")
+    @ApiModelProperty(notes = "A unique code asssigned to each player.")
     private String playerID;
+
     @JsonProperty(value = "birthYear")
+    @ApiModelProperty(notes = "Year player was born")
     private int birthYear;
+
     @JsonProperty(value = "birthMonth")
+    @ApiModelProperty(notes ="Month player was born")
     private int birthMonth;
+
     @JsonProperty(value = "birthDay")
+    @ApiModelProperty(notes = "Day player was born")
     private int birthDay;
+
     @JsonProperty(value = "birthCountry")
+    @ApiModelProperty(notes = "Country where player was born")
     private String birthCountry;
+
     @JsonProperty(value = "birthState")
+    @ApiModelProperty(notes = "State where player was born")
     private String birthState;
+
     @JsonProperty(value = "birthCity")
+    @ApiModelProperty(notes = "City where player was born")
     private String birthCity;
+
     @JsonProperty(value = "deathYear")
+    @ApiModelProperty(notes = "Year player died")
     private String deathYear;
+
     @JsonProperty(value = "deathMonth")
+    @ApiModelProperty(notes = "Month player died")
     private String deathMonth;
+
     @JsonProperty(value = "deathDay")
+    @ApiModelProperty(notes = "Day player died")
     private String deathDay;
+
     @JsonProperty(value = "deathCountry")
+    @ApiModelProperty(notes = "Country where player died")
     private String deathCountry;
+
     @JsonProperty(value = "deathState")
+    @ApiModelProperty(notes ="State where player died")
     private String deathState;
+
     @JsonProperty(value = "deathCity")
+    @ApiModelProperty(notes = "City where player died")
     private String deathCity;
+
     @JsonProperty(value = "nameFirst")
+    @ApiModelProperty(notes = "Player's first name")
     private String nameFirst;
+
     @JsonProperty(value = "nameLast")
+    @ApiModelProperty(notes = "Player's last name")
     private String nameLast;
+
     @JsonProperty(value = "nameGiven")
+    @ApiModelProperty(notes ="Player's given name (typically first and middle)")
     private String nameGiven;
+
     @JsonProperty(value = "weight")
+    @ApiModelProperty(notes = "Player's weight in pounds")
     private int weight;
+
     @JsonProperty(value = "height")
+    @ApiModelProperty(notes = "Player's height in inches")
     private int height;
+
     @JsonProperty(value = "bats")
+    @ApiModelProperty(notes = "Player's batting hand (left, right, or both)")
     private String bats;
+
     @Column(name = "throws")
     @JsonProperty(value = "throwsHand")
+    @ApiModelProperty(notes ="Player's throwing hand (left or right)")
     private String throwsHand;
+
     @JsonProperty(value = "debut")
+    @ApiModelProperty(notes = "Date that player made first major league appearance")
     private String debut;
+
     @JsonProperty(value = "finalGame")
+    @ApiModelProperty(notes = "Date that player made first major league appearance (blank if still active)")
     private String finalGame;
+
     @JsonProperty(value = "retroID")
+    @ApiModelProperty(notes = "ID used by retrosheet")
     private String retroID;
+
     @JsonProperty(value = "bbrefID")
+    @ApiModelProperty(notes = "ID used by Baseball Reference website")
     private String bbrefID;
 
-    public String getPlayerID() {
-        return playerID;
-    }
+    @OneToMany
+    @JoinColumn(name = "playerID")
+    @ApiModelProperty(dataType = "[com.rodriguez.giomar.model.Batting]")
+    @JsonIgnore
+    private List<Batting> battings;
 
-    public void setPlayerID(String playerID) {
-        this.playerID = playerID;
-    }
-
-    public int getBirthYear() {
-        return birthYear;
-    }
-
-    public void setBirthYear(int birthYear) {
-        this.birthYear = birthYear;
-    }
-
-    public int getBirthMonth() {
-        return birthMonth;
-    }
-
-    public void setBirthMonth(int birthMonth) {
-        this.birthMonth = birthMonth;
-    }
-
-    public int getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(int birthDay) {
-        this.birthDay = birthDay;
-    }
-
-    public String getBirthCountry() {
-        return birthCountry;
-    }
-
-    public void setBirthCountry(String birthCountry) {
-        this.birthCountry = birthCountry;
-    }
-
-    public String getBirthState() {
-        return birthState;
-    }
-
-    public void setBirthState(String birthState) {
-        this.birthState = birthState;
-    }
-
-    public String getBirthCity() {
-        return birthCity;
-    }
-
-    public void setBirthCity(String birthCity) {
-        this.birthCity = birthCity;
-    }
-
-    public String getDeathYear() {
-        return deathYear;
-    }
-
-    public void setDeathYear(String deathYear) {
-        this.deathYear = deathYear;
-    }
-
-    public String getDeathMonth() {
-        return deathMonth;
-    }
-
-    public void setDeathMonth(String deathMonth) {
-        this.deathMonth = deathMonth;
-    }
-
-    public String getDeathDay() {
-        return deathDay;
-    }
-
-    public void setDeathDay(String deathDay) {
-        this.deathDay = deathDay;
-    }
-
-    public String getDeathCountry() {
-        return deathCountry;
-    }
-
-    public void setDeathCountry(String deathCountry) {
-        this.deathCountry = deathCountry;
-    }
-
-    public String getDeathState() {
-        return deathState;
-    }
-
-    public void setDeathState(String deathState) {
-        this.deathState = deathState;
-    }
-
-    public String getDeathCity() {
-        return deathCity;
-    }
-
-    public void setDeathCity(String deathCity) {
-        this.deathCity = deathCity;
-    }
-
-    public String getNameFirst() {
-        return nameFirst;
-    }
-
-    public void setNameFirst(String nameFirst) {
-        this.nameFirst = nameFirst;
-    }
-
-    public String getNameLast() {
-        return nameLast;
-    }
-
-    public void setNameLast(String nameLast) {
-        this.nameLast = nameLast;
-    }
-
-    public String getNameGiven() {
-        return nameGiven;
-    }
-
-    public void setNameGiven(String nameGiven) {
-        this.nameGiven = nameGiven;
-    }
-
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public String getBats() {
-        return bats;
-    }
-
-    public void setBats(String bats) {
-        this.bats = bats;
-    }
-
-    public String getThrowsHand() {
-        return throwsHand;
-    }
-
-    public void setThrowsHand(String throwsHand) {
-        this.throwsHand = throwsHand;
-    }
-
-    public String getDebut() {
-        return debut;
-    }
-
-    public void setDebut(String debut) {
-        this.debut = debut;
-    }
-
-    public String getFinalGame() {
-        return finalGame;
-    }
-
-    public void setFinalGame(String finalGame) {
-        this.finalGame = finalGame;
-    }
-
-    public String getRetroID() {
-        return retroID;
-    }
-
-    public void setRetroID(String retroID) {
-        this.retroID = retroID;
-    }
-
-    public String getBbrefID() {
-        return bbrefID;
-    }
-
-    public void setBbrefID(String bbrefID) {
-        this.bbrefID = bbrefID;
-    }
 }

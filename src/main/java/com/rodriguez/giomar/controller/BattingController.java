@@ -5,16 +5,14 @@ import com.rodriguez.giomar.service.BattingService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by giorod on 10/3/2017.
  */
 @RestController
 @Api(tags = "Batting", description = "Batting Endpoints")
+@RequestMapping("/api")
 public class BattingController {
     @Autowired
     BattingService battingService;
@@ -37,6 +35,18 @@ public class BattingController {
             top = "triples";
         }
         return ResponseEntity.ok().body(battingService.findTop(size, top));
+    }
+    @GetMapping("/battings")
+    public ResponseEntity findAll(@RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+                                  @RequestParam(value = "size", defaultValue = "10", required = false) Integer size){
+        return ResponseEntity.ok().body(battingService.findAll(page, size));
+    }
+
+    @GetMapping("/battings/search")
+    public ResponseEntity search(@RequestParam String[] query,
+                                 @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+                                 @RequestParam(value = "size", defaultValue = "10", required = false) Integer size){
+        return ResponseEntity.ok(battingService.search(query, page, size));
     }
 
 }

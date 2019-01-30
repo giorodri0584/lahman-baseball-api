@@ -14,6 +14,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public List<Team> findAll(Integer page, Integer size) {
-        return teamRepository.findAll(new PageRequest(page, size)).getContent();
+        return teamRepository.findAll(new PageRequest(page, size));
+    }
+
+    @Override
+    public List<Team> findByTeamId(String teamId) {
+        return teamRepository.findByTeamID(teamId);
     }
 }

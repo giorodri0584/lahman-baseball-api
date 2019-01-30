@@ -27,8 +27,8 @@ public class SearchSpecification<T> implements Specification<T> {
         } else if(searchCriteria.getOperation().equalsIgnoreCase("<")){
             return criteriaBuilder.lessThanOrEqualTo(root.<String> get(searchCriteria.getKey()), searchCriteria.getValue().toString());
         }else if(searchCriteria.getOperation().equalsIgnoreCase(":")){
-            return criteriaBuilder.like(root.<String> get(searchCriteria.getKey()), searchCriteria.getValue().toString());
-        }else if(searchCriteria.getOperation().equalsIgnoreCase("@")){
+            return criteriaBuilder.like(root.<String> get(searchCriteria.getKey()), "%" + searchCriteria.getValue().toString() + "%");
+        }else if(searchCriteria.getOperation().equalsIgnoreCase("=")){
             return criteriaBuilder.equal(root.<String> get(searchCriteria.getKey()), searchCriteria.getValue().toString());
         }
         return null;

@@ -8,13 +8,12 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * Created by giorod on 9/28/2017.
  */
 @Repository
 public interface PlayerRepository extends CrudRepository<Player, String>, JpaSpecificationExecutor<Player> {
     Page<Player> findAll(Specification spec, Pageable pageable);
-    List<Player> findAll(Pageable pageable);
+    Page<Player> findAll(Pageable pageable);
+    Page<Player> findByPlayerID(String playerID, Pageable pageable);
 }

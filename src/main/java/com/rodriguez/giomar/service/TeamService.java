@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TeamService {
     List<Team> findAll(Integer page, Integer size);
+    List<Team> findByTeamId(String teamI);
 }

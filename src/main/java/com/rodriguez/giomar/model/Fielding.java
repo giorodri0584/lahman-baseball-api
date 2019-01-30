@@ -3,6 +3,8 @@ package com.rodriguez.giomar.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -15,6 +17,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "fielding")
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)
+@Getter
+@Setter
 public class Fielding {
     @JsonIgnore
     @EmbeddedId
@@ -91,148 +95,4 @@ public class Fielding {
     @JsonProperty(value = "ZR")
     @Column(name = "ZR")
     private String ZR;
-
-    public String getPlayerID() {
-        return playerID;
-    }
-
-    public void setPlayerID(String playerID) {
-        this.playerID = playerID;
-    }
-
-    public int getYearID() {
-        return yearID;
-    }
-
-    public void setYearID(int yearID) {
-        this.yearID = yearID;
-    }
-
-    public int getStint() {
-        return stint;
-    }
-
-    public void setStint(int stint) {
-        this.stint = stint;
-    }
-
-    public String getTeamID() {
-        return teamID;
-    }
-
-    public void setTeamID(String teamID) {
-        this.teamID = teamID;
-    }
-
-    public String getLgID() {
-        return lgID;
-    }
-
-    public void setLgID(String lgID) {
-        this.lgID = lgID;
-    }
-
-    public String getPOS() {
-        return POS;
-    }
-
-    public void setPOS(String POS) {
-        this.POS = POS;
-    }
-
-    public int getG() {
-        return G;
-    }
-
-    public void setG(int g) {
-        G = g;
-    }
-
-    public String getGS() {
-        return GS;
-    }
-
-    public void setGS(String GS) {
-        this.GS = GS;
-    }
-
-    public String getInnOuts() {
-        return InnOuts;
-    }
-
-    public void setInnOuts(String innOuts) {
-        InnOuts = innOuts;
-    }
-
-    public int getPO() {
-        return PO;
-    }
-
-    public void setPO(int PO) {
-        this.PO = PO;
-    }
-
-    public int getA() {
-        return A;
-    }
-
-    public void setA(int a) {
-        A = a;
-    }
-
-    public int getE() {
-        return E;
-    }
-
-    public void setE(int e) {
-        E = e;
-    }
-
-    public int getDP() {
-        return DP;
-    }
-
-    public void setDP(int DP) {
-        this.DP = DP;
-    }
-
-    public String getPB() {
-        return PB;
-    }
-
-    public void setPB(String PB) {
-        this.PB = PB;
-    }
-
-    public String getWP() {
-        return WP;
-    }
-
-    public void setWP(String WP) {
-        this.WP = WP;
-    }
-
-    public String getSB() {
-        return SB;
-    }
-
-    public void setSB(String SB) {
-        this.SB = SB;
-    }
-
-    public String getCS() {
-        return CS;
-    }
-
-    public void setCS(String CS) {
-        this.CS = CS;
-    }
-
-    public String getZR() {
-        return ZR;
-    }
-
-    public void setZR(String ZR) {
-        this.ZR = ZR;
-    }
 }

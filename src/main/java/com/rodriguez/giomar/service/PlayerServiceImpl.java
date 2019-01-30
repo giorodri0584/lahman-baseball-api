@@ -1,16 +1,14 @@
 package com.rodriguez.giomar.service;
 
+import com.rodriguez.giomar.errors.SearchError;
 import com.rodriguez.giomar.model.Player;
 import com.rodriguez.giomar.repository.PlayerRepository;
 import com.rodriguez.giomar.repository.SpecificationsBuilder;
+import fj.data.Either;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -18,24 +16,17 @@ public class PlayerServiceImpl implements PlayerService {
     PlayerRepository playerRepository;
 
     @Override
-    public List<Player> findAll(Integer page, Integer size) {
+    public Page<Player> findAll(Integer page, Integer size) {
         return playerRepository.findAll(new PageRequest(page, size));
     }
 
     @Override
-    public Player findOne(String playerId) {
-        return playerRepository.findOne(playerId);
+    public Page<Player> findOne(String playerId, Integer page, Integer size) {
+        return playerRepository.findByPlayerID(playerId, new PageRequest(page, size));
     }
 
     @Override
-    public List<Player> search(String search, Integer page, Integer size) {
-        SpecificationsBuilder<Player> builder = new SpecificationsBuilder<Player>();
-        Pattern pattern = Pattern.compile("(\\w+?)(:|<|>|@)(\\w+?),");
-        Matcher matcher = pattern.matcher(search + ",");
-        while (matcher.find()) {
-            builder.with(matcher.group(1), matcher.group(2), matcher.group(3));
-        }
-        Specification spec = builder.build();
-        return playerRepository.findAll(spec, new PageRequest(page,size)).getContent();
+    public Either<SearchError, Page<Player>> search(String[] query, Integer page, Integer size) {
+        return Either.right(playerRepository.findAll(SpecificationsBuilder.build(query), new PageRequest(0,20)));
     }
 }
