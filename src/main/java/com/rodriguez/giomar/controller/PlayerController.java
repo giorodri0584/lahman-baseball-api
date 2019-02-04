@@ -34,9 +34,7 @@ public class PlayerController {
     }
     @ApiOperation(value = "Retrieve player by playerID", response = Player.class)
     @GetMapping(EndpointUrl.PLAYERS_PLAYERID)
-    public ResponseEntity<?> findOne(@PathVariable("playerID") String playerID,
-                                     @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
-                                     @RequestParam(value = "size", defaultValue = "10", required = false) Integer size){
+    public ResponseEntity<?> findOne(@PathVariable("playerID") String playerID){
         Player player = playerService.findOne(playerID);
         if(player != null){
             return ResponseEntity.ok(player);
