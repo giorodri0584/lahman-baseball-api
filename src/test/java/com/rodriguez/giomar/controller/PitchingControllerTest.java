@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -25,7 +24,7 @@ public class PitchingControllerTest {
 
     @Test
     public void findAll() throws Exception{
-        this.mockMvc.perform(MockMvcRequestBuilders.get(EndpointUrl.PITCHINGS))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api" + EndpointUrl.PITCHINGS))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(LoadJson.from("pitchingsFindAll.json")));
@@ -33,7 +32,7 @@ public class PitchingControllerTest {
 
     @Test
     public void findByPlayerId() throws Exception{
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/martipe02/pitchings"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/martipe02/pitchings"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(LoadJson.from("onePitcher.json")));

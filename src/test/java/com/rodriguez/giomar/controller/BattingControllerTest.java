@@ -27,7 +27,7 @@ public class BattingControllerTest {
     public void findTop() throws Exception{
         String[] properties = {"G", "AB", "R", "H", "2b", "3B", "HR", "RBI", "SB", "CS", "BB", "SO","IBB", "HBP", "SH", "SF", "GIDP"};
         for (String property : properties) {
-            this.mockMvc.perform(MockMvcRequestBuilders.get("/battings/search/top?size=1&top="+property))
+            this.mockMvc.perform(MockMvcRequestBuilders.get("/api/battings/search/top?size=1&top="+property))
                     .andDo(print())
                     .andExpect(status().isOk());
         }

@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -23,26 +24,27 @@ public class PlayerControllerIntegrationTest {
 
     @Test
     public void findOne() throws Exception{
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/players/aglerjo01"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/players/aglerjo01"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(LoadJson.from("onePlayer.json")));
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/players/noAndId"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/players/noAndId"))
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(""));
     }
 
     @Test
     public void findAll() throws Exception{
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/players"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/players"))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void search() throws Exception{
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/players/search?search=nameFirst:pedro"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/players/search?query=nameFirst:pedro"))
                 .andExpect(status().isOk());
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/players/search?search=nameFirst:pedro,nameLast:martinez"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/players/search?query=nameFirst:pedro,nameLast:martinez"))
                 .andExpect(status().isOk());
     }
 }

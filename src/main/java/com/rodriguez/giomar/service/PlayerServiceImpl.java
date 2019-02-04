@@ -21,12 +21,17 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Page<Player> findOne(String playerId, Integer page, Integer size) {
-        return playerRepository.findByPlayerID(playerId, new PageRequest(page, size));
+    public Player findOne(String playerId) {
+        return playerRepository.findByPlayerID(playerId);
     }
 
     @Override
     public Either<SearchError, Page<Player>> search(String[] query, Integer page, Integer size) {
-        return Either.right(playerRepository.findAll(SpecificationsBuilder.build(query), new PageRequest(0,20)));
+        try {
+            Page players = playerRepository.findAll(SpecificationsBuilder.build(query), new PageRequest(0,20));
+            return Either.right(players);
+        }catch (Exception e){
+            return Either.left(new SearchError(e.getMessage().toString()));
+        }
     }
 }

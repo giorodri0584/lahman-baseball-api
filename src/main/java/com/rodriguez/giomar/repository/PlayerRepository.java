@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
 public interface PlayerRepository extends CrudRepository<Player, String>, JpaSpecificationExecutor<Player> {
     Page<Player> findAll(Specification spec, Pageable pageable);
     Page<Player> findAll(Pageable pageable);
-    Page<Player> findByPlayerID(String playerID, Pageable pageable);
+    Player findByPlayerID(String playerID);
 }

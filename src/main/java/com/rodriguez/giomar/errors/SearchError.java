@@ -7,4 +7,8 @@ import lombok.Setter;
 @Setter
 public class SearchError {
     private String error;
+
+    public SearchError(String error) {
+        this.error = error;
+    }
 }

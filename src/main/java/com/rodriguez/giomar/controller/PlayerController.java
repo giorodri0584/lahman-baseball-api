@@ -1,8 +1,10 @@
 package com.rodriguez.giomar.controller;
 
 import com.rodriguez.giomar.configuration.EndpointUrl;
+import com.rodriguez.giomar.errors.SearchError;
 import com.rodriguez.giomar.model.Player;
 import com.rodriguez.giomar.service.PlayerService;
+import fj.data.Either;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ public class PlayerController {
     public ResponseEntity<?> findOne(@PathVariable("playerID") String playerID,
                                      @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
                                      @RequestParam(value = "size", defaultValue = "10", required = false) Integer size){
-        Page<Player> player = playerService.findOne(playerID, page, size);
+        Player player = playerService.findOne(playerID);
         if(player != null){
             return ResponseEntity.ok(player);
         }else {
@@ -48,6 +50,13 @@ public class PlayerController {
                                                       @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
                                                       @RequestParam(value = "size", defaultValue = "0", required = false) Integer size){
 
-        return ResponseEntity.ok().body(playerService.search(query, page, size));
+        Either<SearchError, Page<Player>> result = playerService.search(query, page, size);
+        if(result.isRight()) {
+            return ResponseEntity.ok().body(result.right().value());
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.left().value());
+        }
+
     }
 }

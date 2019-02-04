@@ -1,17 +1,17 @@
 package com.rodriguez.giomar.helper;
 
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 public class LoadJsonTest {
     @Test
     public void from() throws Exception{
-        String json = LoadJson.from("onePlayer.json");
-        String expected = "{\n" +
+        JSONObject json = new JSONObject(LoadJson.from("onePlayer.json"));
+        JSONObject expected = new JSONObject("{\n" +
                 "  \"playerID\": \"aglerjo01\",\n" +
                 "  \"birthYear\": 1887,\n" +
                 "  \"birthMonth\": 6,\n" +
@@ -36,8 +36,7 @@ public class LoadJsonTest {
                 "  \"finalGame\": \"1915-10-02\",\n" +
                 "  \"retroID\": \"aglej101\",\n" +
                 "  \"bbrefID\": \"aglerjo01\"\n" +
-                "}";
-
-        assert(expected).equals(json);
+                "}");
+        JSONAssert.assertEquals(expected, json, false);
     }
 }

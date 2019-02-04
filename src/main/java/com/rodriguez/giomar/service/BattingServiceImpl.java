@@ -1,14 +1,18 @@
 package com.rodriguez.giomar.service;
 
+import com.rodriguez.giomar.errors.SearchError;
 import com.rodriguez.giomar.model.Batting;
 import com.rodriguez.giomar.repository.BattingRepository;
 import com.rodriguez.giomar.repository.SpecificationsBuilder;
+import fj.data.Either;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Service
 public class BattingServiceImpl implements BattingService{
@@ -31,20 +35,18 @@ public class BattingServiceImpl implements BattingService{
     }
 
     @Override
-    public List<Batting> search(String[] query, Integer page, Integer size) {
+    public Either<SearchError, Page<Batting>> search(String[] query, Integer page, Integer size) {
         for(int i = 0; i < query.length; i++){
-            System.out.println(query[i]);
-            if(query[i].equals("2b") || query[i].equals("2B")){
-                System.out.println(query[i]);
-                query[i] = "doubles";
-                System.out.println(query[i]);
-            }
-            if (query[i].equals("3b") || query[i].equals("3B")){
-                query[i] = "triples";
-            }
-
             query[i] = query[i].toUpperCase();
+            StringTokenizer queryToken = new StringTokenizer(query[i], "=:<>", true);
+            String key = queryToken.nextToken();
+            if(key.equals("2B")){
+                query[i] = query[i].replace("2B", "doubles");
+            }
+            if (key.equals("3B")){
+                query[i] = query[i].replace("3B", "triples");
+            }
         }
-        return battingRepository.findAll(SpecificationsBuilder.build(query), new PageRequest(page, size)).getContent();
+        return Either.right(battingRepository.findAll(SpecificationsBuilder.build(query), new PageRequest(page, size)));
     }
 }

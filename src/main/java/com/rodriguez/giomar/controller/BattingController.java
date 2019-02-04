@@ -46,7 +46,7 @@ public class BattingController {
     public ResponseEntity search(@RequestParam String[] query,
                                  @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
                                  @RequestParam(value = "size", defaultValue = "10", required = false) Integer size){
-        return ResponseEntity.ok(battingService.search(query, page, size));
+        return ResponseEntity.ok(battingService.search(query, page, size).right().value());
     }
 
 }
