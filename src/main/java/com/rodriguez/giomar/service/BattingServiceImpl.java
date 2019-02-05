@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.StringTokenizer;
 
 @Service
@@ -20,18 +19,25 @@ public class BattingServiceImpl implements BattingService{
     private BattingRepository battingRepository;
 
     @Override
-    public List<Batting> findAll(Integer page, Integer size) {
+    public Page<Batting> findAll(Integer page, Integer size) {
         return battingRepository.findAll(new PageRequest(page, size));
     }
 
     @Override
-    public List<Batting> findAll(String playerId, Integer page, Integer size) {
+    public Page<Batting> findAll(String playerId, Integer page, Integer size) {
         return battingRepository.findByBattingIdPlayerID(playerId, new PageRequest(page, size));
     }
 
     @Override
-    public List<Batting> findTop(Integer size, String colunm) {
-        return battingRepository.findAll(new PageRequest(0, size, Sort.Direction.DESC, colunm));
+    public Page<Batting> findTop(Integer size, String top) {
+        top.toUpperCase();
+        if(top.equals("2B")){
+            top = "doubles";
+        }
+        if (top.equals("3B")){
+            top = "triples";
+        }
+        return battingRepository.findAll(new PageRequest(0, size, Sort.Direction.DESC, top));
     }
 
     @Override

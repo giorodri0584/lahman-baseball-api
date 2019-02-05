@@ -11,9 +11,6 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * Created by giorod on 9/6/2018.
- */
 @Entity
 @Table(name = "fielding")
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)

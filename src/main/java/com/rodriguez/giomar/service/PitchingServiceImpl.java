@@ -3,11 +3,10 @@ package com.rodriguez.giomar.service;
 import com.rodriguez.giomar.model.Pitching;
 import com.rodriguez.giomar.repository.PitchingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PitchingServiceImpl implements PitchingService {
@@ -15,17 +14,17 @@ public class PitchingServiceImpl implements PitchingService {
     private PitchingRepository pitchingRepository;
 
     @Override
-    public List<Pitching> findAll(Integer page, Integer size) {
+    public Page<Pitching> findAll(Integer page, Integer size) {
         return pitchingRepository.findAll(new PageRequest(page, size));
     }
 
     @Override
-    public List<Pitching> findById(String playerId) {
-        return pitchingRepository.findByPitchingIdPlayerID(playerId);
+    public Page<Pitching> findById(String playerId, Integer page, Integer size) {
+        return pitchingRepository.findByPitchingIdPlayerID(playerId, new PageRequest(page, size));
     }
 
     @Override
-    public List<Pitching> findTop(Integer size, String colunm) {
+    public Page<Pitching> findTop(Integer size, String colunm) {
         return pitchingRepository.findAll(new PageRequest(0, size, Sort.Direction.DESC, colunm));
     }
 }

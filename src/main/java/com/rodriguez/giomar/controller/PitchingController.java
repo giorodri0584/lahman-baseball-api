@@ -7,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by giorod on 8/22/2018.
- */
 @RestController
 @Api(tags = "Pitching", description = "Pitching Endpoints")
-@RequestMapping("/api")
 public class PitchingController {
     @Autowired
     PitchingService pitchingService;
@@ -25,9 +21,11 @@ public class PitchingController {
         return ResponseEntity.ok(pitchingService.findAll(page, size));
     }
 
-    @GetMapping(EndpointUrl.PITCHINGS_PLAYER)
-    public ResponseEntity findByPlayerId(@PathVariable("playerId") String playerId){
-        return ResponseEntity.ok(pitchingService.findById(playerId));
+    @GetMapping(EndpointUrl.PITCHINGS_BY_PLAYER_ID)
+    public ResponseEntity findByPlayerId(@PathVariable("playerId") String playerId,
+                                         @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
+                                         @RequestParam(value = "size", defaultValue = "20", required = false) Integer size){
+        return ResponseEntity.ok(pitchingService.findById(playerId, page, size));
     }
 
     @GetMapping(EndpointUrl.PITCHINGS_SEARCH_TOP)

@@ -6,9 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by giorod on 9/6/2018.
- */
 @RestController
 @RequestMapping("/api")
 @Api(tags = "Fielding", description = "Fielding Endpoints")
@@ -24,7 +21,9 @@ public class FieldingController {
         return ResponseEntity.ok(fieldingService.findAll(page, size));
     }
     @GetMapping("/{playerId}/fieldings")
-    public ResponseEntity findByPlayerId(@PathVariable("playerId") String playerId){
-        return ResponseEntity.ok(fieldingService.findByPlayerId(playerId));
+    public ResponseEntity findByPlayerId(@PathVariable("playerId") String playerId,
+                                         @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+                                         @RequestParam(value = "size", required = false, defaultValue = "10") Integer size){
+        return ResponseEntity.ok(fieldingService.findByPlayerId(playerId, page, size));
     }
 }

@@ -9,9 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by giorod on 9/28/2017.
- */
 @Entity
 @Table(name = "master")
 @Getter

@@ -6,9 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-/**
- * Created by giorod on 11/8/2017.
- */
 @Embeddable
 public class CompositeId implements Serializable{
     @JsonProperty(value = "playerID")

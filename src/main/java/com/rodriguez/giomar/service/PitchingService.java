@@ -1,11 +1,10 @@
 package com.rodriguez.giomar.service;
 
 import com.rodriguez.giomar.model.Pitching;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface PitchingService {
-    List<Pitching> findAll(Integer page, Integer size);
-    List<Pitching> findById(String playerId);
-    List<Pitching> findTop(Integer size, String colunm);
+    Page<Pitching> findAll(Integer page, Integer size);
+    Page<Pitching> findById(String playerId, Integer page, Integer size);
+    Page<Pitching> findTop(Integer size, String colunm);
 }

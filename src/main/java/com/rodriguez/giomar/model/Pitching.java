@@ -8,9 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-/**
- * Created by giorod on 8/22/2018.
- */
 @Entity
 @Table(name = "pitching")
 @JsonAutoDetect(getterVisibility = JsonAutoDetect.Visibility.NONE)

@@ -1,8 +1,5 @@
 package com.rodriguez.giomar.repository;
 
-/**
- * Created by giorod on 9/2/2018.
- */
 public class SearchCriteria {
     private String key;
     private String operation;

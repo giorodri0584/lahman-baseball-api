@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("playerService")
 public class PlayerServiceImpl implements PlayerService {
     @Autowired
     PlayerRepository playerRepository;

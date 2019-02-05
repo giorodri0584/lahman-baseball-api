@@ -7,9 +7,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-/**
- * Created by giorod on 9/2/2018.
- */
 public class SearchSpecification<T> implements Specification<T> {
     private SearchCriteria searchCriteria;
 

@@ -13,12 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-/**
- * Created by giorod on 10/3/2017.
- */
 @RestController
-@RequestMapping("/api")
 @Api(tags = "Player", description = "Players Endpoints")
 public class PlayerController {
     @Autowired
@@ -26,15 +21,15 @@ public class PlayerController {
 
     @GetMapping(EndpointUrl.PLAYERS)
     @ApiOperation(value = "Retrieves All Players", response = Player.class)
-    public ResponseEntity<?> findAll(
+    public ResponseEntity findAll(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer size){
 
         return ResponseEntity.ok(playerService.findAll(page, size));
     }
     @ApiOperation(value = "Retrieve player by playerID", response = Player.class)
-    @GetMapping(EndpointUrl.PLAYERS_PLAYERID)
-    public ResponseEntity<?> findOne(@PathVariable("playerID") String playerID){
+    @GetMapping(EndpointUrl.PLAYERS_BY_PLAYER_ID)
+    public ResponseEntity findOne(@PathVariable("playerID") String playerID){
         Player player = playerService.findOne(playerID);
         if(player != null){
             return ResponseEntity.ok(player);
@@ -43,7 +38,7 @@ public class PlayerController {
         }
     }
     @ApiOperation(value = "Search for player base on stats", response = Player.class)
-    @GetMapping(EndpointUrl.PLAYER_SEARCH)
+    @GetMapping(EndpointUrl.PLAYERS_SEARCH)
     public ResponseEntity search(@RequestParam String[] query,
                                                       @RequestParam(value = "page", defaultValue = "0", required = false) Integer page,
                                                       @RequestParam(value = "size", defaultValue = "0", required = false) Integer size){

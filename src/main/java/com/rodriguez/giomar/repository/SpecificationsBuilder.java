@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-/**
- * Created by giorod on 9/3/2018.
- */
 public class SpecificationsBuilder {
     public static Specification build(String[] query) {
         List<Specification> specs = new ArrayList<>();
